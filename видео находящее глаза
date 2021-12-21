@@ -1,0 +1,23 @@
+import cv2
+import sys
+import pyttsx3
+
+# tts= pyttsx3.init()
+# tts.say('jhgkjhg')
+# tts.runAndWait()
+cap = cv2.VideoCapture(0)    # 0 1
+cap.set(1, 500)
+cap.set(4,500)
+
+
+
+    success, img = cap.read()
+while True:
+    cv2.imshow("Resut", img)
+    gh = cv2.CascadeClassifier("fmb.xml")
+    results = gh.detectMultiScale(img, scaleFactor=2, minNeighbors=20 )   #вместо (a-scaleFactor малое число), вместо (a-minNeighbors любое число)
+    print(results)
+    for (x,y,w,h) in results:
+        cv2.rectangle(img, (x,y),(x+w, y+h), (0,0,255),thickness= 2)
+    if cv2.waitKey(2) & 0xFF == ord("q"):
+        break
